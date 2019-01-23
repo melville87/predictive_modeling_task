@@ -1,3 +1,29 @@
+# =========================================================
+# Python 3 script for bike counts 
+# predictive modeling task. 
+# 
+# INPUTS: 
+#   1. PATH TO BIKE COUNTS DATASET. 
+#   2. SEED FOR RANDOM NUMBER GENERATOR. 
+# 
+# The code executes five steps: 
+# 1 -> loads .csv data. 
+# 2 -> checks if any rows contain missing values.
+# 3 -> cleans and preprocesses dataset 
+# 4 -> builds model using Lasso linear regression
+#      as implemented in scikit-learn LassoCV module. 
+# 5 -> returns model parameters and mean 
+#      absolute error (on the whole dataset). 
+# 
+# Code schema: 
+# ---| main 
+# ---| load_data
+# ---| check_missing
+# ---| preprocess_data
+# ---| build_model
+# =========================================================
+
+
 # load modules
 import sys
 import pandas as pd
@@ -21,7 +47,7 @@ def load_data(file_path: str) -> pd.DataFrame:
 
 def check_missing(dataset: pd.DataFrame) -> pd.DataFrame:
     '''Returns data frame with missing values (can be empty)'''
-
+    # check for missing rows 
     missing_data = dataset[dataset.isna().any(axis='columns')]
     return missing_data
 
@@ -113,10 +139,10 @@ def main(file_path, rand):
 # ==== run main script ====
 if __name__ == "__main__":
     # two inputs must be supplied:
-    # data file path and random number for reproducibility
+    # data file path and seed for reproducibility
     # file_path = path to hour.csv file
-    file_path = sys.argv[1]
-    rand = int(sys.argv[2])
+    file_path = input('Path to bike counts dataset: ')
+    rand = int(input('Seed (int) for random number generator: '))
 
     params, model, mae_model = main(file_path, rand)
 
